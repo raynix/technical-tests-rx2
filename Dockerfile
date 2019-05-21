@@ -8,7 +8,10 @@ RUN apk update --no-cache && \
 
 WORKDIR /app
 COPY . /app
-RUN go test && \
+
+RUN go get -u golang.org/x/lint/golint && \
+  golint -set_exit_status && \
+  go test && \
   go build -o app .
 
 # final stage
